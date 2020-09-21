@@ -1,0 +1,326 @@
+@import 'mixins';
+@import 'placeholder';
+@import 'variables';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $color-dark-bg;
+
+  font: {
+    size: 1.4rem;
+    family: $font-primary;
+    weight: 300;
+  }
+
+  color: $color-dark-text-1;
+  line-height: 1.6;
+  width: auto;
+  max-width: 112rem;
+  margin: 0;
+
+  &.light {
+    background-color: $color-light-bg;
+    color: $color-light-text-1;
+  }
+}
+
+.background-box {
+  background-color: $color-dark-top-bg;
+  position: absolute;
+  width: 100%;
+  height: 24.5rem;
+  z-index: -10;
+  border-bottom-left-radius: 1.5rem;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: 0 auto;
+}
+
+.light .background-box {
+  background-color: $color-light-top-bg;
+}
+
+.attribution {
+  font-size: 11px;
+  text-align: center;
+
+  a {
+    color: hsl(228, 45%, 44%);
+  }
+}
+
+.container {
+  margin: 0.5rem auto;
+  padding: 4rem;
+}
+
+.bottom {
+  &__heading {
+    margin-top: 4.5rem;
+  }
+
+  &__card {
+    body.light & {
+      background-color: $color-light-card-bg;
+    }
+
+    width: 100%;
+    height: auto;
+    border-radius: 0.8rem;
+    background-color: $color-dark-card-bg;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+
+    &-column {
+      display: grid;
+      grid-template-rows: repeat(2, 1fr);
+      text-align: left;
+
+      &:nth-child(2) {
+        text-align: right;
+      }
+    }
+
+    &-change {
+      align-self: flex-end;
+    }
+
+    &-value {
+      line-height: 4rem;
+    }
+  }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(-webkit-max-content, 1fr));
+  grid-template-columns: repeat(4, minmax(max-content, 1fr));
+  row-gap: 2.5rem;
+  -moz-column-gap: 3rem;
+       column-gap: 3rem;
+  margin-top: 4rem;
+
+  @media (max-width: 960px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: 960px) {
+    flex-wrap: wrap;
+  }
+
+  &__left {
+    @media (max-width: 960px) {
+      flex-basis: 100%;
+      border-bottom: solid 1px $color-dark-text-1;
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+
+      &-title {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  &__right {
+    display: flex;
+
+    @media (max-width: 960px) {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    &-switch {
+      margin-left: 2rem;
+      position: relative;
+      display: inline-block;
+      width: 5rem;
+      height: 2.5rem;
+    }
+
+    &-input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    &-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: $color-dark-toggle;
+      transition: 0.4s;
+      border-radius: 34px;
+
+      &:before {
+        position: absolute;
+        content: '';
+        height: 2.1rem;
+        width: 2.1rem;
+        left: 2px;
+        bottom: 2px;
+        background-color: $color-dark-bg;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+    }
+
+    &-input:checked + &-slider {
+      background-image: $color-light-toggle;
+
+      &:before {
+        transform: translateX(2.5rem);
+        background-color: $color-light-bg;
+      }
+    }
+  }
+}
+
+.top {
+  
+    body.light &__card {
+    background-color: $color-light-card-bg;
+  }
+  
+  &__card {
+    width: 100%;
+    height: auto;
+    border-radius: 0.8rem;
+    background-color: $color-dark-card-bg;
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+
+    &-user {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &-logo {
+      margin-right: 1rem;
+    }
+
+    &-followers {
+      &-text {
+        letter-spacing: 0.6rem;
+        text-transform: uppercase;
+        
+        margin: {
+            top: -1rem;
+            bottom: 2rem;
+        }
+      }
+    }
+
+    &-facebook:before {
+      @include card-before;
+
+      background-color: $color-facebook;
+    }
+
+    &-twitter:before {
+      @include card-before;
+
+      background-color: $color-twitter;
+    }
+    &-youtube:before {
+      @include card-before;
+
+      background-color: $color-youtube;
+    }
+
+    &-instagram:before {
+      @include card-before;
+
+      background-image: $color-instagram;
+    }
+  }
+}
+
+.text-1 {
+    @extend %text;
+    
+    @include font-content-text(6rem);
+    
+    color: $color-dark-text-2;
+
+	body.light & {
+		color: $color-light-text-2;
+	}
+}
+
+.text-2 {
+	@extend %text;
+	font-size: 2.4rem;
+    font-weight: 700;
+    
+    @include font-content-text(2.4rem);
+    
+    color: $color-dark-text-2;
+    
+	body.light & {
+		color: $color-light-text-2;
+	}
+}
+
+.text-3 {
+	@extend %text;
+
+    @include font-content-text(2rem);
+
+	color: $color-dark-text-2;
+    
+    body.light & {
+		color: $color-light-text-2;
+	}
+}
+
+.text-4 {
+	@extend %text;
+    
+    @include font-content-text(1.4rem);
+
+    color: $color-dark-text-1;
+    
+	body.light & {
+		color: $color-light-text-1;
+	}
+}
+
+.text-5 {
+	@extend %text;
+    
+    @include font-content-text(1.2rem, 400);
+
+    color: $color-dark-text-1;
+    
+	body.light & {
+		color: $color-light-text-1;
+	}
+}
+
+.change {
+	color: $color-green;
+
+    @include font-content-text(1.2rem);
+}
+
+.negative-change {
+    color: $color-red;
+    
+    @include font-content-text(1.2rem);
+}
